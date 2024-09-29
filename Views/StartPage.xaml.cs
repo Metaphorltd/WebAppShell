@@ -28,11 +28,20 @@ public partial class StartPage : ViewBase<StartPageViewModel>
     {
         base.OnSizeAllocated(width, height);
 
-        ItemsHeight = 60d + (width - lstVideos.Margin.Right - lstVideos.Margin.Left) / 1.8d;
+        //ItemsHeight = 60d + (width - lstVideos.Margin.Right - lstVideos.Margin.Left) / 1.8d;
     }
 
     async void txtSearchQuery_Completed(System.Object sender, System.EventArgs e)
     {
-        ViewModel.SearchVideosCommand.Execute(txtSearchQuery.Text);
+        //ViewModel.SearchVideosCommand.Execute(txtSearchQuery.Text);
+    }
+    private void WebView_OnNavigating(object? sender, WebNavigatingEventArgs e)
+    {
+        ViewModel.IsBusy = true;
+    }
+
+    private void VisualElement_OnLoaded(object? sender, EventArgs e)
+    {
+        ViewModel.IsBusy = false;
     }
 }

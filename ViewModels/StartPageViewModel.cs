@@ -31,7 +31,7 @@ public partial class StartPageViewModel : AppViewModelBase
     {
         SetDataLodingIndicators(true);
 
-        LoadingText = "Hold on while we search for Youtube videos...";
+        //LoadingText = "Hold on while we search for Youtube videos...";
 
 
         try
@@ -39,20 +39,20 @@ public partial class StartPageViewModel : AppViewModelBase
             //Search for videos
             await GetYouTubeVideos();
 
-            this.DataLoaded = true;
+            //this.DataLoaded = true;
         }
-        catch (InternetConnectionException iex)
-        {
-            this.IsErrorState = true;
-            this.ErrorMessage = "Slow or no internet connection." + Environment.NewLine + "Please check you internet connection and try again.";
-            ErrorImage = "nointernet.png";
-        }
-        catch (Exception ex)
-        {
-            this.IsErrorState = true;
-            this.ErrorMessage = $"Something went wrong. If the problem persists, plz contact support at {Constants.EmailAddress} with the error message:" + Environment.NewLine + Environment.NewLine + ex.Message;
-            ErrorImage = "error.png";
-        }
+        //catch (InternetConnectionException iex)
+        //{
+        //    this.IsErrorState = true;
+        //    this.ErrorMessage = "Slow or no internet connection." + Environment.NewLine + "Please check you internet connection and try again.";
+        //    ErrorImage = "nointernet.png";
+        //}
+        //catch (Exception ex)
+        //{
+        //    this.IsErrorState = true;
+        //    this.ErrorMessage = $"Something went wrong. If the problem persists, plz contact support at {Constants.EmailAddress} with the error message:" + Environment.NewLine + Environment.NewLine + ex.Message;
+        //    ErrorImage = "error.png";
+        //}
         finally
         {
             SetDataLodingIndicators(false);
@@ -68,6 +68,16 @@ public partial class StartPageViewModel : AppViewModelBase
     private async void OpenSettingPage()
     {
         await PageService.DisplayAlert("Setting", "This implemention is outside the scope of this course.", "Got it!");
+    }
+    [RelayCommand]
+    private async void StartLoading()
+    {
+        IsBusy = true;
+    }
+    [RelayCommand]
+    private async void StopLoading()
+    {
+        IsBusy = false;
     }
 
     [RelayCommand]
